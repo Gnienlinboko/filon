@@ -114,7 +114,7 @@ const MainLayout = () => {
         <li className="menu-item">
           <a href="/dashboard/categorie" className="menu-link">
             <i className="menu-icon tf-icons bx bx-home-circle" />
-            <div data-i18n="Analytics">Categorie</div>
+            <div data-i18n="Analytics">Fournisseur</div>
           </a>
         </li>
         <li className="menu-item">

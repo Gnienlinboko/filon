@@ -3,6 +3,7 @@
 
 import axios from 'axios';
 import react, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 const Categorie = () => {
@@ -28,9 +29,20 @@ const Categorie = () => {
 
   console.log(categories)
 
+  const supprimerCategorie = async (id) => {
+    const confirmation = window.confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur?');
+    if (!confirmation) return;
+
+    try {
+      await axios.delete(`http://127.0.0.1:4000/supprimerUnFournisseur/${id}`);
+      getCategories();
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }}
+
     return (
       <div className="container-xxl flex-grow-1 container-p-y">
-         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard/</span> Categorie</h4>
+         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tableau de bord/</span>Fournisseur</h4>
          <center>
          <div style={{marginBottom:'10px'}}>
          <a type="button" href='/dashboard/createCategorie' class="btn btn-success">AJOUTER UN FOURNISSEUR</a>
@@ -47,6 +59,7 @@ const Categorie = () => {
               <th>libelle</th>
               <th>telephone</th>
               <th>Email</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody className="table-border-bottom-0">
@@ -60,6 +73,18 @@ const Categorie = () => {
               <td>{categorie.libelle}</td>
               <td>{categorie.telephone}</td>
               <td>{categorie.email}</td>
+
+              <td>
+                      
+                        <div className='row'>
+                          <Link className="dropdown-item" >
+                            <i className="bx bx-edit-alt me-1" />
+                          </Link>
+                          <Link className="dropdown-item" onClick={()=>supprimerCategorie(categorie._id)}>
+                            <i className="bx bx-trash me-1" />
+                          </Link>
+                        </div>
+                        </td>
             </tr>
 
           ))
